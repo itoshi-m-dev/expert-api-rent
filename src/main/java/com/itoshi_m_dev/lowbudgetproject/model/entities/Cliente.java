@@ -24,6 +24,8 @@ public class Cliente {
     private String email;
     @Column(name = "dataNascimento")
     private LocalDate dataNascimento;
+    @Column(name = "endereco")
+    private String endereco;
 
     @OneToMany(mappedBy = "cliente",
             cascade = CascadeType.ALL,
@@ -33,11 +35,12 @@ public class Cliente {
 
     public Cliente(){}
 
-    public Cliente(String nome, String cpf, String email, LocalDate dataNascimento) {
+    public Cliente(String nome, String cpf, String email, LocalDate dataNascimento, String endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.dataNascimento = dataNascimento;
+        this.endereco = endereco;
     }
 
     public String getNome() {
@@ -72,9 +75,19 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
     public List<Equipamentos> getEquipamentosAlugadosList() {
         return equipamentosAlugadosList;
     }
+
+
 
     @Override
     public String toString() {
