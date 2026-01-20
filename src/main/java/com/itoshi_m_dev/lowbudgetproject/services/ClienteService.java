@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ClienteServices {
+public class ClienteService {
 
     private final ClienteRepository repository;
 

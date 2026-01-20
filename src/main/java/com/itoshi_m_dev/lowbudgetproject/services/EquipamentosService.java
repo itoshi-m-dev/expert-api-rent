@@ -1,10 +1,11 @@
 package com.itoshi_m_dev.lowbudgetproject.services;
 
+import com.itoshi_m_dev.lowbudgetproject.model.entities.Cliente;
 import com.itoshi_m_dev.lowbudgetproject.model.entities.Equipamentos;
+import com.itoshi_m_dev.lowbudgetproject.model.enums.StatusEquipamento;
 import com.itoshi_m_dev.lowbudgetproject.repositories.EquipamentosRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +13,10 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class EquipamentosServices {
+public class EquipamentosService {
 
     private final EquipamentosRepository repository;
+
 
     public List<Equipamentos> buscarEquipamentos(){
         return repository.findAll();
@@ -54,5 +56,23 @@ public class EquipamentosServices {
         repository.deleteById(uuid);
      }
 
+     public List<Equipamentos> BuscarPorCliente(Cliente cliente){
+        List<Equipamentos> equipamentosLista = repository.findByCliente(cliente);
+        if (equipamentosLista.isEmpty()){
+            throw new RuntimeException("Nao foi encontrado nenhum equipamento com este cliente");
 
+        }
+
+        return equipamentosLista;
+
+     }
+
+     public List<Equipamentos> findByStatus(StatusEquipamento status) {
+         List<Equipamentos> stList = repository.findByStatus(status);
+         if (stList.isEmpty()) {
+             throw new RuntimeException("Nao foi encontrado nenhum equipamento com este cliente");
+
+         }
+         return stList;
+     }
 }
