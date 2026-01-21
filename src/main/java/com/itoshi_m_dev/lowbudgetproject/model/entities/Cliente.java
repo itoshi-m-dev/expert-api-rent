@@ -43,6 +43,14 @@ public class Cliente {
         this.endereco = endereco;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
