@@ -55,10 +55,10 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody ClienteDTO dto){
+    public ResponseEntity<ClienteDTO> cadastrarCliente(@RequestBody @Valid ClienteDTO dto){
         Cliente clienteSalvo = service.salvarClientes(dto.mapearParaCliente());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/id")
+                .path("/{id}")
                 .buildAndExpand(clienteSalvo.getId())
                 .toUri();
 

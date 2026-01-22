@@ -23,18 +23,27 @@ public class Equipamentos {
     @Enumerated(EnumType.STRING)
     private StatusEquipamento status;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     public Equipamentos(){
 
     }
 
-    public Equipamentos(String nome, TipoEquipamento tipoEquipamento, StatusEquipamento status, Cliente cliente) {
+    public Equipamentos(String nome,
+                        TipoEquipamento tipoEquipamento,
+                        StatusEquipamento status) {
         this.nome = nome;
         this.tipoEquipamento = tipoEquipamento;
         this.status = status;
+    }
+
+    public Equipamentos(String nome,
+                        TipoEquipamento tipoEquipamento,
+                        StatusEquipamento status,
+                        Cliente cliente) {
+        this(nome, tipoEquipamento, status);
         this.cliente = cliente;
     }
 

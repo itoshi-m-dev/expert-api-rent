@@ -56,7 +56,7 @@ public class EquipamentosService {
         repository.deleteById(uuid);
      }
 
-     public List<Equipamentos> BuscarPorCliente(Cliente cliente){
+     public List<Equipamentos> buscarPorCliente(Cliente cliente){
         List<Equipamentos> equipamentosLista = repository.findByCliente(cliente);
         if (equipamentosLista.isEmpty()){
             throw new RuntimeException("Nao foi encontrado nenhum equipamento com este cliente");
@@ -67,7 +67,7 @@ public class EquipamentosService {
 
      }
 
-     public List<Equipamentos> findByStatus(StatusEquipamento status) {
+     public List<Equipamentos> buscarPorStatus(StatusEquipamento status) {
          List<Equipamentos> stList = repository.findByStatus(status);
          if (stList.isEmpty()) {
              throw new RuntimeException("Nao foi encontrado nenhum equipamento com este cliente");
