@@ -51,7 +51,7 @@ public class EquipamentosController {
         return ResponseEntity.ok().body(dtos);
     }
 
-    @GetMapping
+    @GetMapping(params = "status")
     public ResponseEntity<List<EquipamentosDTO>> listarEquipamentosPorStatus(
             @RequestParam(required = false)StatusEquipamento status){
         List<Equipamentos> list;
@@ -67,14 +67,11 @@ public class EquipamentosController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<EquipamentosDTO> atualizarEquipamentosPorId(@PathVariable("id")String id,
-                                                                      @RequestBody @Valid EquipamentosDTO dto){
-
-    Equipamentos equipamento = service.atualizarEquipamentosPorId(dto.mapearParaEquipamentos(), id);
-    EquipamentosDTO equipamentoDTO = EquipamentosDTO.fromEntity(equipamento);
-
-    return ResponseEntity.ok(equipamentoDTO);
-
+    public ResponseEntity<EquipamentosDTO> atualizarEquipamentosPorId(@PathVariable("id") String id,
+                                                                      @RequestBody @Valid EquipamentosDTO dto) {
+        // Passamos o DTO direto para o service
+        Equipamentos equipamento = service.atualizarEquipamentosPorId(dto, id);
+        return ResponseEntity.ok(EquipamentosDTO.fromEntity(equipamento));
     }
 
     @DeleteMapping(value = "/{id}")
@@ -85,9 +82,11 @@ public class EquipamentosController {
 
     @PostMapping
     public ResponseEntity<EquipamentosDTO> cadastarEquipamento(@RequestBody @Valid EquipamentosDTO dto){
-        Equipamentos e = service.salvarEquipamentos(dto.mapearParaEquipamentos());
+        Equipamentos e = service.salvarEquipamentos(dto);
+
         EquipamentosDTO response = EquipamentosDTO.fromEntity(e);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(e.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(e.getId()).toUri();
 
         return ResponseEntity.created(uri).body(response);
 

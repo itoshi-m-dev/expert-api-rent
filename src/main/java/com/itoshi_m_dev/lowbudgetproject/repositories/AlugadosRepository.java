@@ -9,5 +9,5 @@ import java.util.UUID;
 
 public interface AlugadosRepository extends JpaRepository<Alugados, UUID> {
 
-    List<Alugados> findByCliente(Cliente cliente);
+    List<Alugados> findByClienteId(UUID clienteId);
 }

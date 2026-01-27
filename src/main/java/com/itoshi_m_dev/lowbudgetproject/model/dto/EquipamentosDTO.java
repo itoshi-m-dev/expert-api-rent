@@ -1,11 +1,14 @@
 package com.itoshi_m_dev.lowbudgetproject.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.itoshi_m_dev.lowbudgetproject.model.entities.Equipamentos;
 import com.itoshi_m_dev.lowbudgetproject.model.enums.StatusEquipamento;
 import com.itoshi_m_dev.lowbudgetproject.model.enums.TipoEquipamento;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import java.util.UUID;
 
 public record EquipamentosDTO (
 
@@ -17,7 +20,10 @@ public record EquipamentosDTO (
         TipoEquipamento tipoEquipamento,
 
         @NotNull(message = "Status é obrigatório")
-        StatusEquipamento status
+        StatusEquipamento status,
+
+        @JsonProperty("clienteId")
+        UUID clienteId
 )  {
 
     public Equipamentos mapearParaEquipamentos() {
@@ -33,7 +39,8 @@ public record EquipamentosDTO (
         return new EquipamentosDTO(
                 e.getNome(),
                 e.getTipoEquipamento(),
-                e.getStatus()
+                e.getStatus(),
+                e.getCliente().getId()
         );
     }
 }

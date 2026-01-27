@@ -22,9 +22,9 @@ public class Cliente {
     private String cpf;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-    @Column(name = "dataNascimento")
+    @Column(name = "dataNascimento", nullable = false)
     private LocalDate dataNascimento;
-    @Column(name = "endereco")
+    @Column(name = "endereco", nullable = false)
     private String endereco;
 
     @OneToMany(mappedBy = "cliente",
